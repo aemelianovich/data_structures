@@ -17,17 +17,13 @@ Implementation of different data structures, e.g. DoublyLinkedList, Stack, Struc
 [![Test Coverage](https://api.codeclimate.com/v1/badges/35c5d87bcc295b25ea5f/test_coverage)](https://codeclimate.com/github/aemelianovich/data_structures/test_coverage)
 
 > ### Structure API:
->
-> > ##### const structure = new Structure<string | number>(['name', 'lastName', 'age']);
-> >
-> > ##### structure.name = 'Jack';
-> >
-> > ##### structure.lastName = 'Black';
-> >
-> > ##### structure.age = '53';
-> >
-> > ##### console.log(structure.name);
-> >
-> > ##### console.log(structure.lastName);
-> >
-> > ##### console.log(structure.age);
+
+##### const structure = new Structure<string | number>(['name', 'lastName', 'age']);
+
+##### structure.name = 'Jack';
+##### structure.lastName = 'Black';
+##### structure.age = '53';
+
+##### console.log(structure.name);
+##### console.log(structure.lastName);
+##### console.log(structure.age);
