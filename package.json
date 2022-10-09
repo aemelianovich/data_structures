@@ -2,7 +2,7 @@
   "name": "data_structures",
   "version": "1.0.0",
   "description": "Implementation of different data structures, e.g DoublyLinkedList, Stack, Structure, Deque etc.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest test"
