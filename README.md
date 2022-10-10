@@ -16,7 +16,7 @@ Implementation of different data structures, e.g. DoublyLinkedList, Stack, Struc
     // Assign values to the predefined keys
     structure.name = 'Jack';
     structure.lastName = 'Black';
-    structure.age = '53';
+    structure.age = 53;
 
     // Get values by key
     console.log(structure.name);

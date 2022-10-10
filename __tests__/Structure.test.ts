@@ -22,7 +22,7 @@ describe('test Structure<string | number>', () => {
     expect(struct.age).toBe(34);
   });
 
-  it('Set diff value', () => {
+  it('Update value', () => {
     struct.age = 50;
     expect(struct.age).toBe(34);
   });
