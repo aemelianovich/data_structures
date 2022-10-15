@@ -1,4 +1,4 @@
-import Structure from '../src/structure/Structure';
+import Structure from '../src/data_structures/structure';
 
 const createStructure = (): Structure<string | number> => {
   const struct = new Structure<string | number>(['name', 'age']);
@@ -24,6 +24,6 @@ describe('test Structure<string | number>', () => {
 
   it('Update value', () => {
     struct.age = 50;
-    expect(struct.age).toBe(34);
+    expect(struct.age).toBe(50);
   });
 });

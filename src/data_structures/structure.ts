@@ -11,9 +11,7 @@ export default class Stucture<T> {
           return this.#structure[indx];
         },
         set(v) {
-          if (this.#structure[indx] === undefined) {
-            this.#structure[indx] = v;
-          }
+          this.#structure[indx] = v;
         },
       });
     }

@@ -18,6 +18,9 @@ Implementation of different data structures, e.g. DoublyLinkedList, Stack, Struc
     structure.lastName = 'Black';
     structure.age = 53;
 
+    // Update value by key
+    structure.age = 30;
+
     // Get values by key
     console.log(structure.name);
     console.log(structure.lastName);
