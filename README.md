@@ -14,6 +14,7 @@ Implementation of different data structures, e.g.
 
 ## Structure API:
 
+    ```js
     import Structure from './src';
 
     // Create new structure with keys
@@ -31,9 +32,11 @@ Implementation of different data structures, e.g.
     console.log(structure.name);
     console.log(structure.lastName);
     console.log(structure.age);
+    ```
 
 ## Stack API:
 
+    ```js
     import Stack from './src';
 
     // Create new stack with fixed size
@@ -55,11 +58,13 @@ Implementation of different data structures, e.g.
     stack.isFull();
 
     // Predefiend Errors:
-    // The 'StackOverflowError' error will be thrown if you tried to add element into a full stack
-    // The 'StackIsEmptyError' error will be thrown if you tried to get element from an empty stack
+    // The 'StructOverflowError' error will be thrown if you tried to add element into a full stack
+    // The 'StructIsEmptyError' error will be thrown if you tried to get element from an empty stack
+    ```
 
 ## Doubly Linked List API:
 
+    ```js
     import DoublyLinkedList from './src';
 
     // Create new list
@@ -112,9 +117,11 @@ Implementation of different data structures, e.g.
     for (const link of this.reverse()) {
       link.showLink();
     }
+    ```
 
 ## Queue API:
 
+    ```js
     import Queue from './src';
 
     // Create new queue
@@ -127,7 +134,7 @@ Implementation of different data structures, e.g.
     queue.head();
 
     // Get the first queue element and extract it from the queue
-    queue.pop();
+    queue.shift();
 
     // Check is queue empty or not
     queue.isEmpty();
@@ -136,4 +143,44 @@ Implementation of different data structures, e.g.
     queue.showQueue();
 
     // Predefiend Errors:
-    // The 'QueueIsEmptyError' error will be thrown if you tried to get element from an empty queue
+    // The 'StructIsEmptyError' error will be thrown if you tried to get element from an empty queue
+    ```
+
+## Dequeue API:
+
+    ```js
+    import Dequeue from './src';
+
+    // Create new dequeue
+    const dequeue = new Dequeue<number>();
+
+    // Add new value in the end of the queue
+    dequeue.push(1);
+
+    // Add new value in the beginning of the queue
+    dequeue.unshift(2);
+
+    // Get the first queue element without extracting
+    dequeue.head();
+
+    // Get the last queue element without extracting
+    dequeue.tail();
+
+    // Get the first queue element and extract it from the queue
+    dequeue.shift();
+
+    // Get the last queue element and extract it from the queue
+    dequeue.pop();
+
+    // Check is queue empty or not
+    dequeue.isEmpty();
+
+    // Print into console all queue elements in forward order
+    dequeue.showDequeue();
+
+    // Print into console all queue elements in backward order
+    dequeue.showBackwardDequeue();
+
+    // Predefiend Errors:
+    // The 'StructIsEmptyError' error will be thrown if you tried to get element from an empty queue
+    ```
