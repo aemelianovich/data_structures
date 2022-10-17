@@ -1,4 +1,4 @@
-import Stack from '../src/data_structures/stack';
+import { Stack } from '../src/index';
 
 describe('test Stack<number>', () => {
   const stack = new Stack<number>(3);

@@ -1,4 +1,4 @@
-import Structure from '../src/data_structures/structure';
+import { Structure } from '../src/index';
 
 const createStructure = (): Structure<string | number> => {
   const struct = new Structure<string | number>(['name', 'age']);

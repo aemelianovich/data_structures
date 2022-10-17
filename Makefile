@@ -4,6 +4,8 @@ install:
 build:
 	rm -rf dist && \
 	npm run build
+run:
+	node --es-module-specifier-resolution=node ./dist/index.js
 
 test:
 	npm test
