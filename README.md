@@ -8,7 +8,7 @@ Implementation of different data structures, e.g. DoublyLinkedList, Stack, Struc
 
 ## Structure API:
 
-    import Structure from './structure/Structure';
+    import Structure from './src';
 
     // Create new structure with keys
     const structure = new Structure<string | number>(['name', 'lastName', 'age']);
@@ -25,3 +25,29 @@ Implementation of different data structures, e.g. DoublyLinkedList, Stack, Struc
     console.log(structure.name);
     console.log(structure.lastName);
     console.log(structure.age);
+
+## Stack API:
+
+    import Stack from './src';
+
+    // Create new stack with fixed size
+    const stack = new Stack<number>(3);
+
+    // Add new value
+    stack.push(1);
+
+    // Get the top stack element without extracting
+    stack.peek();
+
+    // Get the top stack element and extract it from the stack
+    stack.pop();
+
+    // Check is stack empty
+    stack.isEmpty();
+
+    // Check is stack full
+    stack.isFull();
+
+    // Predefiend Errors:
+    // The 'StackOverflowError' error will be thrown if you tried to add element into a full stack
+    // The 'StackIsEmptyError' error will be thrown if you tried to get element from an empty stack
