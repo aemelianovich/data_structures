@@ -208,7 +208,7 @@ Implementation of different data structures, e.g.
     arr.pop();
 
     // Check the length of the array
-    arr.length();
+    arr.length;
 
     // Update/Insert element using bracket notation
     // Element can be inserted right after the last element (random insert is not available)
