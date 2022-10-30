@@ -186,14 +186,24 @@ Implementation of different data structures, e.g.
     // The 'StructIsEmptyError' error will be thrown if you tried to get element from an empty queue
     ```
 
-## Dynamic Array(based on linked list) API:
+## Dynamic Array API:
 
     ```js
+    // Dynamic array based on linked list (unlimeted capacity)
     import DynamicArray from './src';
+    // Dynamic array based on vector (limited capacity by number type)
+    import DynamicArrayVector from './src';
 
-    // Create new array
+    // Create new array based on linked list
     // Pass capacity of the fixed array that will be stored in the one link of linked list
     const arr = new DynamicArray<number>(3);
+
+    // or
+
+    // Create new array based on vector
+    // Pass capacity of the fixed array that will be initially created for vector
+    // const arr = new DynamicArrayVector<number>(3);
+
 
     // Add new value in the end of the array
     arr.push(1);
