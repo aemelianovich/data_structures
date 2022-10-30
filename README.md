@@ -10,7 +10,8 @@ Implementation of different data structures, e.g.
 - Stack(Based on Array)
 - DoublyLinkedList
 - Queue(Based on linked list)
-- Deque(Based on linked list)
+- Dequeue(Based on linked list)
+- DynamicArray(Based on fixed array and linked list)
 
 ## Structure API:
 
@@ -183,4 +184,40 @@ Implementation of different data structures, e.g.
 
     // Predefiend Errors:
     // The 'StructIsEmptyError' error will be thrown if you tried to get element from an empty queue
+    ```
+
+## Dynamic Array(based on linked list) API:
+
+    ```js
+    import DynamicArray from './src';
+
+    // Create new array
+    // Pass capacity of the fixed array that will be stored in the one link of linked list
+    const arr = new DynamicArray<number>(3);
+
+    // Add new value in the end of the array
+    arr.push(1);
+
+    // Add new value in the beginning of the array
+    arr.unshift(2);
+
+    // Get the first arrat element and extract it from the array
+    arr.shift();
+
+    // Get the last array element and extract it from the array
+    arr.pop();
+
+    // Check the length of the array
+    arr.length();
+
+    // Update/Insert element using bracket notation
+    // Element can be inserted right after the last element (random insert is not available)
+    arr[0] = 1;
+
+    // Get element using bracket notation
+    console.log(arr[0]);
+
+    // Predefiend Errors:
+    // The 'StructIsEmptyError' error will be thrown if you tried to get element from an empty array
+    // The 'StructRandomInsertError' error will be thrown if you tried to insert element into random place
     ```

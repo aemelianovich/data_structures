@@ -37,9 +37,20 @@ export default class Queue<T> implements QueueInterface<T> {
     this.#list.showList();
   }
 
-  *[Symbol.iterator](): Iterator<T> {
-    for (const link of this.#list) {
-      yield link.value;
+  [Symbol.iterator](): IterableIterator<T> {
+    function* iter(this: Queue<T>) {
+      for (const link of this.#list) {
+        yield link.value;
+      }
     }
+
+    const i = iter.call(this);
+
+    return {
+      [Symbol.iterator]() {
+        return this;
+      },
+      next: () => i.next(),
+    };
   }
 }

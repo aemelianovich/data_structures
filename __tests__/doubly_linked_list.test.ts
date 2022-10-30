@@ -1,14 +1,14 @@
 import { DoublyLinkedList } from '../src/index';
 
-describe('test DoublyLinkedList<number | string>', () => {
-  test('Test isEmpty', () => {
+describe('DoublyLinkedList<number | string>', () => {
+  test('Check list is empty or not', () => {
     const list = new DoublyLinkedList<number | string>();
     expect(list.isEmpty()).toBeTruthy();
     list.insertFirst(1);
     expect(list.isEmpty()).toBeFalsy();
   });
 
-  test('Test insertFirst', () => {
+  test('Insert element into the beginning of the list', () => {
     const list = new DoublyLinkedList<number | string>();
 
     list.insertFirst(1);
@@ -33,7 +33,7 @@ describe('test DoublyLinkedList<number | string>', () => {
     expect(list.first?.value).toBe(4);
   });
 
-  test('Test deleteFirst', () => {
+  test('Delete element from the beginning of the list', () => {
     const list = new DoublyLinkedList<number | string>();
 
     list.insertFirst(1);
@@ -102,7 +102,7 @@ describe('test DoublyLinkedList<number | string>', () => {
     expect(list.isEmpty()).toBeTruthy();
   });
 
-  test('Test insertLast', () => {
+  test('Insert element into the end of the list', () => {
     const list = new DoublyLinkedList<number | string>();
 
     list.insertLast('last 1');
@@ -134,7 +134,7 @@ describe('test DoublyLinkedList<number | string>', () => {
     expect(list.first?.value).toBe(3);
   });
 
-  test('Test deleteLast', () => {
+  test('Delete element from the end of the list', () => {
     const list = new DoublyLinkedList<number | string>();
 
     list.insertFirst('last 2');
@@ -223,7 +223,7 @@ describe('test DoublyLinkedList<number | string>', () => {
     expect(list.isEmpty()).toBeTruthy();
   });
 
-  test('Test find', () => {
+  test('Find element by key', () => {
     const list = new DoublyLinkedList<number | string>();
 
     list.insertFirst(1);
@@ -236,7 +236,7 @@ describe('test DoublyLinkedList<number | string>', () => {
     expect(nullLink).toBe(null);
   });
 
-  test('Test delete', () => {
+  test('Delete element by key', () => {
     const list = new DoublyLinkedList<number | string>();
 
     list.insertFirst(1);
@@ -314,7 +314,7 @@ describe('test DoublyLinkedList<number | string>', () => {
     expect(list.isEmpty()).toBeTruthy();
   });
 
-  test('Test insertAfter operations', () => {
+  test('Insert element after the element with passed key', () => {
     const list = new DoublyLinkedList<number | string>();
 
     list.insertFirst(1);
@@ -369,7 +369,7 @@ describe('test DoublyLinkedList<number | string>', () => {
     expect(list.first?.value).toBe(2);
   });
 
-  test('Test iterators', () => {
+  test('Iterate through the list', () => {
     const list = new DoublyLinkedList<number | string>();
     list.insertFirst(1);
     list.insertFirst(2);
