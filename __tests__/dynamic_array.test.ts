@@ -117,19 +117,4 @@ describe('DynamicArray<number>', () => {
 
     expect(arr.length).toBe(4);
   });
-
-  // test('Get the last element of the dequeue without extracting', () => {
-  //   const dequeue = new Dequeue<number>();
-  //   expect(() => dequeue.tail()).toThrow(StructIsEmptyError);
-
-  //   dequeue.push(1);
-  //   dequeue.push(2);
-  //   dequeue.push(3);
-
-  //   expect(dequeue.tail()).toBe(3);
-
-  //   dequeue.pop();
-
-  //   expect(dequeue.tail()).toBe(2);
-  // });
 });
