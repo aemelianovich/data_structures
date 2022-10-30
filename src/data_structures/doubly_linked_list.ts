@@ -7,9 +7,11 @@ class Link<T> implements LinkInterface<T> {
   value: T;
   next: LinkInterface<T> | null = null;
   prev: LinkInterface<T> | null = null;
+
   constructor(value: T) {
     this.value = value;
   }
+
   showLink(): void {
     console.log(this.value);
   }
