@@ -102,7 +102,7 @@ class DynamicArrayVector<T = unknown> {
     }
 
     let idx = this.length - 1;
-    while (idx > 0) {
+    while (idx >= 0) {
       this.#vector[idx + 1] = this.#vector[idx];
       idx--;
     }
