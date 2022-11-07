@@ -1,15 +1,15 @@
 import { Dequeue } from '../src/index';
 import StructIsEmptyError from '../src/data_structures/errors/struct_empty_error';
 
-describe('test Dequeue<number>', () => {
-  test('Test isEmpty', () => {
+describe('Dequeue<number>', () => {
+  test('Check dequeue is empty or not', () => {
     const dequeue = new Dequeue<number>();
     expect(dequeue.isEmpty()).toBeTruthy();
     dequeue.push(1);
     expect(dequeue.isEmpty()).toBeFalsy();
   });
 
-  test('Test push', () => {
+  test('Insert element into the end of dequeue', () => {
     const dequeue = new Dequeue<number>();
 
     dequeue.push(1);
@@ -23,7 +23,7 @@ describe('test Dequeue<number>', () => {
     }
   });
 
-  test('Test unshift', () => {
+  test('Insert element in the beginning of the dequeue', () => {
     const dequeue = new Dequeue<number>();
 
     dequeue.unshift(1);
@@ -37,7 +37,7 @@ describe('test Dequeue<number>', () => {
     }
   });
 
-  test('Test shift', () => {
+  test('Extract element from the beginning of the dequeue', () => {
     const dequeue = new Dequeue<number>();
 
     expect(() => dequeue.shift()).toThrow(StructIsEmptyError);
@@ -53,7 +53,7 @@ describe('test Dequeue<number>', () => {
     expect(dequeue.isEmpty()).toBeTruthy();
   });
 
-  test('Test pop', () => {
+  test('Extract element from the end of dequeue', () => {
     const dequeue = new Dequeue<number>();
 
     expect(() => dequeue.pop()).toThrow(StructIsEmptyError);
@@ -69,7 +69,7 @@ describe('test Dequeue<number>', () => {
     expect(dequeue.isEmpty()).toBeTruthy();
   });
 
-  test('Test head', () => {
+  test('Get first element of the dequeue without extracting', () => {
     const dequeue = new Dequeue<number>();
     expect(() => dequeue.head()).toThrow(StructIsEmptyError);
 
@@ -84,7 +84,7 @@ describe('test Dequeue<number>', () => {
     expect(dequeue.head()).toBe(2);
   });
 
-  test('Test tail', () => {
+  test('Get the last element of the dequeue without extracting', () => {
     const dequeue = new Dequeue<number>();
     expect(() => dequeue.tail()).toThrow(StructIsEmptyError);
 

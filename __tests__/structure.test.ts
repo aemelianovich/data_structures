@@ -7,7 +7,7 @@ const createStructure = (): Structure<string | number> => {
   return struct;
 };
 
-describe('test Structure<string | number>', () => {
+describe('Structure<string | number>', () => {
   const struct = createStructure();
 
   it('create Structure', () => {

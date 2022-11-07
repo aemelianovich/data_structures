@@ -1,15 +1,15 @@
 import { Queue } from '../src/index';
 import StructIsEmptyError from '../src/data_structures/errors/struct_empty_error';
 
-describe('test Queue<number>', () => {
-  test('Test isEmpty', () => {
+describe('Queue<number>', () => {
+  test('Check queue is empty or not', () => {
     const queue = new Queue<number>();
     expect(queue.isEmpty()).toBeTruthy();
     queue.push(1);
     expect(queue.isEmpty()).toBeFalsy();
   });
 
-  test('Test push', () => {
+  test('Insert element into the end of queue', () => {
     const queue = new Queue<number>();
 
     queue.push(1);
@@ -23,7 +23,7 @@ describe('test Queue<number>', () => {
     }
   });
 
-  test('Test shift', () => {
+  test('Extract element from the beginning of the queue', () => {
     const queue = new Queue<number>();
 
     expect(() => queue.shift()).toThrow(StructIsEmptyError);
@@ -39,7 +39,7 @@ describe('test Queue<number>', () => {
     expect(queue.isEmpty()).toBeTruthy();
   });
 
-  test('Test head', () => {
+  test('Get first element of the queue without extracting', () => {
     const queue = new Queue<number>();
     expect(() => queue.head()).toThrow(StructIsEmptyError);
 
