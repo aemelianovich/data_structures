@@ -117,4 +117,37 @@ describe('DynamicArrayVector<number>', () => {
 
     expect(arr.length).toBe(4);
   });
+
+  test('Test binary search', () => {
+    const arr = new DynamicArrayVector<number>(8);
+
+    arr[0] = 1;
+    arr[1] = 2;
+    arr[2] = 3;
+    arr[3] = 4;
+    arr[4] = 4;
+    arr[5] = 4;
+    arr[6] = 6;
+    arr[7] = 7;
+
+    // Key in the middle of array
+    let res = arr.binarySearch(4);
+    expect(res.leftBound).toBe(2);
+    expect(res.rightBound).toBe(6);
+
+    // Key in the beggining of array
+    res = arr.binarySearch(1);
+    expect(res.leftBound).toBe(-1);
+    expect(res.rightBound).toBe(1);
+
+    // Key in the end of array
+    res = arr.binarySearch(7);
+    expect(res.leftBound).toBe(6);
+    expect(res.rightBound).toBe(8);
+
+    // Key not in the array
+    res = arr.binarySearch(5);
+    expect(res.leftBound).toBe(5);
+    expect(res.rightBound).toBe(6);
+  });
 });

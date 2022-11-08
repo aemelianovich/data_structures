@@ -140,6 +140,69 @@ export default class DynamicArrayVector<T = unknown> {
     this.length++;
   }
 
+  // Return object:
+  // leftBound - points to the index before the seeking key, min -1
+  // rightBound - points to the index after the seeking key, max arr.length
+  // sortedArray - new sorted array which was created based on DynamicArrayVector
+
+  // FYI:
+  // if rightBound - leftBound = 1, it means that number was not founded.
+  // number of founded keys = rightBound - leftBound - 1;
+  binarySearch(key: T): {
+    leftBound: number;
+    rightBound: number;
+    sortedArr: T[];
+  } {
+    // Our vector can have more elements than real length
+    // We have to sort array first
+    const arr = new Array(this.length)
+      .fill('')
+      .map((val, index) => this.#vector[index])
+      .sort();
+
+    function leftBound(arr: T[], key: T): number {
+      let leftBound = -1;
+      let rightBound = arr.length;
+
+      while (rightBound - leftBound > 1) {
+        const middle = Math.trunc(rightBound + leftBound / 2);
+        // if key in the right side from the middle
+        if (arr[middle] < key) {
+          leftBound = middle;
+          // if key in the left side from the middle
+        } else {
+          rightBound = middle;
+        }
+      }
+
+      return leftBound;
+    }
+
+    function rightBound(arr: T[], key: T): number {
+      let leftBound = -1;
+      let rightBound = arr.length;
+
+      while (rightBound - leftBound > 1) {
+        const middle = Math.trunc(rightBound + leftBound / 2);
+        // if key in the right side from the middle
+        if (arr[middle] <= key) {
+          leftBound = middle;
+          // if key in the left side from the middle
+        } else {
+          rightBound = middle;
+        }
+      }
+
+      return rightBound;
+    }
+
+    return {
+      leftBound: leftBound(arr, key),
+      rightBound: rightBound(arr, key),
+      sortedArr: arr,
+    };
+  }
+
   [Symbol.iterator](): IterableIterator<unknown> {
     function* iter(this: DynamicArrayVector) {
       if (this.length === 0) {
