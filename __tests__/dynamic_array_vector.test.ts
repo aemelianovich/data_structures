@@ -135,7 +135,7 @@ describe('DynamicArrayVector<number>', () => {
     expect(res.leftBound).toBe(2);
     expect(res.rightBound).toBe(6);
 
-    // Key in the beggining of array
+    // Key in the beginning of array
     res = arr.binarySearch(1);
     expect(res.leftBound).toBe(-1);
     expect(res.rightBound).toBe(1);
