@@ -1,11 +1,11 @@
 import StructRandomInsertError from './errors/struct_random_insert_error';
 import StructIsEmptyError from './errors/struct_empty_error';
 
-class DynamicArrayVector<T = unknown> {
+export default class DynamicArrayVector<T = unknown> {
   static isIndex(index: string): boolean {
     const indx = Number(index);
     // Check that it is index - positive number and not a float
-    return !isNaN(indx) && indx >= 0 && indx % 1 === 0;
+    return !isNaN(indx) && indx >= 0 && indx % 1 === 0 && indx < 2 ** 32;
   }
 
   #vector: T[];
@@ -16,6 +16,35 @@ class DynamicArrayVector<T = unknown> {
   constructor(capacity: number) {
     this.#capacity = capacity;
     this.#vector = new Array(capacity);
+
+    return new Proxy(this, {
+      get(target, p, receiver) {
+        if (typeof p === 'string') {
+          // Process access by index
+          if (DynamicArrayVector.isIndex(p)) {
+            return target.get(Number(p));
+          }
+        }
+
+        const val = Reflect.get(target, p, receiver);
+
+        if (typeof val === 'function') {
+          return val.bind(target);
+        }
+
+        return val;
+      },
+
+      set(target, p, value, receiver) {
+        if (typeof p === 'string') {
+          // Process set by index
+          if (DynamicArrayVector.isIndex(p)) {
+            target.set(Number(p), value);
+          }
+        }
+        return Reflect.set(target, p, value, receiver);
+      },
+    });
   }
 
   #extendVector() {
@@ -136,40 +165,3 @@ class DynamicArrayVector<T = unknown> {
     };
   }
 }
-
-const proxy = new Proxy(DynamicArrayVector, {
-  construct(target, [capacity]) {
-    const arr = <DynamicArrayVector>new target(capacity);
-
-    return new Proxy(arr, {
-      get(target, p, receiver) {
-        if (typeof p === 'string') {
-          // Process access by index
-          if (DynamicArrayVector.isIndex(p)) {
-            return target.get(Number(p));
-          }
-        }
-
-        const val = Reflect.get(target, p, receiver);
-
-        if (typeof val === 'function') {
-          return val.bind(target);
-        }
-
-        return val;
-      },
-
-      set(target, p, value, receiver) {
-        if (typeof p === 'string') {
-          // Process set by index
-          if (DynamicArrayVector.isIndex(p)) {
-            target.set(Number(p), value);
-          }
-        }
-        return Reflect.set(target, p, value, receiver);
-      },
-    });
-  },
-});
-
-export default proxy;

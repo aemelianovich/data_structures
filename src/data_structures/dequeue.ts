@@ -62,19 +62,17 @@ export default class Dequeue<T> implements DequeueInterface<T> {
   }
 
   [Symbol.iterator](): IterableIterator<T> {
-    function* iter(this: Dequeue<T>) {
-      for (const link of this.#list) {
-        yield link.value;
-      }
-    }
-
-    const i = iter.call(this);
+    const i = this.#list[Symbol.iterator]();
 
     return {
       [Symbol.iterator]() {
         return this;
       },
-      next: () => i.next(),
+      next: () => {
+        const res = i.next();
+        const link = res.value;
+        return { value: link?.value, done: res.done };
+      },
     };
   }
 }
