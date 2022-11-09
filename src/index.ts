@@ -5,3 +5,4 @@ export { default as Queue } from './data_structures/queue';
 export { default as Dequeue } from './data_structures/dequeue';
 export { default as DynamicArray } from './data_structures/dynamic_array';
 export { default as DynamicArrayVector } from './data_structures/dynamic_array_veсtor';
+export { default as HashTable } from './data_structures/hash_table';

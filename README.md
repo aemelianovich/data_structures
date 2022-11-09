@@ -12,6 +12,7 @@ Implementation of different data structures, e.g.
 - Queue(Based on linked list)
 - Dequeue(Based on linked list)
 - DynamicArray(Based on fixed array and linked list)
+- HashTable(Resolving collisions method - chaining based on Linked List)
 
 ## Structure API:
 
@@ -242,4 +243,31 @@ Implementation of different data structures, e.g.
     // Predefiend Errors:
     // The 'StructIsEmptyError' error will be thrown if you tried to get element from an empty array
     // The 'StructRandomInsertError' error will be thrown if you tried to insert element into random place
+    ```
+
+## HashTable API:
+
+    ```js
+    // HashTable (Resolving collisions method - chaining based on Linked List)
+    import HashTable from './src';
+
+    // Create new hash table
+    // Pass capacity of the fixed array that will be used to store key values
+    const hashTable = new HashTable<number | string>(33);
+
+
+    // Add new value in the hash table - pass key and value
+    hashTable.set('foo', 'bla');
+    hashTable.set(10, 20);
+
+    // Update existing value
+    hashTable.set(10, '10foo');
+
+    // Get value by key
+    console.log(hashTable.get('foo')); // 'bla'
+    console.log(hashTable.get(10)); // '10foo'
+
+    // Get keys iterator in random order
+    console.log([...hashTable.keys()]); // ['foo', 10]
+
     ```
