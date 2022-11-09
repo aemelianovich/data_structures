@@ -3,11 +3,11 @@ import DoublyLinkedList from './doubly_linked_list';
 import StructRandomInsertError from './errors/struct_random_insert_error';
 import StructIsEmptyError from './errors/struct_empty_error';
 
-class DynamicArray<T = unknown> {
+export default class DynamicArray<T = unknown> {
   static isIndex(index: string): boolean {
     const indx = Number(index);
     // Check that it is index - positive number and not a float
-    return !isNaN(indx) && indx >= 0 && indx % 1 === 0;
+    return !isNaN(indx) && indx >= 0 && indx % 1 === 0 && indx < 2 ** 32;
   }
 
   #list: DoublyLinkedList<T[]>;
@@ -23,11 +23,40 @@ class DynamicArray<T = unknown> {
     const arr = new Array(this.#capacity);
     this.#list.insertLast(arr);
     this.#listLength++;
+
+    return new Proxy(this, {
+      get(target, p, receiver) {
+        if (typeof p === 'string') {
+          // Process access by index
+          if (DynamicArray.isIndex(p)) {
+            return target.get(Number(p));
+          }
+        }
+
+        const val = Reflect.get(target, p, receiver);
+
+        if (typeof val === 'function') {
+          return val.bind(target);
+        }
+
+        return val;
+      },
+
+      set(target, p, value, receiver) {
+        if (typeof p === 'string') {
+          // Process set by index
+          if (DynamicArray.isIndex(p)) {
+            target.set(Number(p), value);
+          }
+        }
+        return Reflect.set(target, p, value, receiver);
+      },
+    });
   }
 
   #getListIndex(index: number): number {
     // Starting from 0
-    return Math.ceil((index + 1) / this.#capacity) - 1;
+    return Math.floor(index / this.#capacity);
   }
 
   #getLocalIndex(index: number): number {
@@ -43,13 +72,10 @@ class DynamicArray<T = unknown> {
     return false;
   }
 
-  // Remove elements from the Dynamic Array
-  // startIndex and endIndex included
-  #removeElements(startIndex: number, endIndex: number): void {
-    if (this.length === 0) {
-      throw new StructIsEmptyError('DynamicArray');
-    }
-
+  #getStartLinkEndLink(
+    startIndex: number,
+    endIndex: number,
+  ): { startLink: Link<T[]> | null; endLink: Link<T[]> | null } {
     if (startIndex > endIndex) {
       throw new Error(
         `startIndex should be less or equal to the endIndex, startIndex: ${startIndex}, endIndex: ${endIndex} .`,
@@ -69,9 +95,6 @@ class DynamicArray<T = unknown> {
         `startIndex and endIndex should be positive number: ${startIndex}, endIndex: ${endIndex} .`,
       );
     }
-
-    // Number of elements for deletion
-    const delCount = endIndex - startIndex + 1;
 
     // Go through the list to find a startLink and endLink
     let currListIndex = 0;
@@ -107,13 +130,31 @@ class DynamicArray<T = unknown> {
       currListIndex++;
     }
 
+    return { startLink, endLink };
+  }
+
+  // Remove elements from the Dynamic Array
+  // startIndex and endIndex included
+  #removeElements(startIndex: number, endIndex: number): void {
+    if (this.length === 0) {
+      throw new StructIsEmptyError('DynamicArray');
+    }
+
+    // Number of elements for deletion
+    const delCount = endIndex - startIndex + 1;
+
+    const { startLink, endLink } = this.#getStartLinkEndLink(
+      startIndex,
+      endIndex,
+    );
+
     // Move values to the new position instead of removed elements
 
     // source - element that should be moved to the new position
     let sourceIndex = endIndex + 1;
     let sourceLink =
       this.#getLocalIndex(endIndex) === this.#capacity - 1
-        ? endLink.next
+        ? endLink?.next
         : endLink;
 
     // target - element where we should move source element
@@ -122,7 +163,8 @@ class DynamicArray<T = unknown> {
 
     // Move all source elements to the new positions
     while (sourceIndex < this.length) {
-      targetLink.value[this.#getLocalIndex(targetIndex)] =
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      targetLink!.value[this.#getLocalIndex(targetIndex)] =
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         sourceLink!.value[this.#getLocalIndex(sourceIndex)];
 
@@ -160,21 +202,11 @@ class DynamicArray<T = unknown> {
       return undefined;
     }
 
-    // Go through the list to find a proper element in the array
-    let currListIndex = 0;
-    let targetLinkIndex = this.#getListIndex(index);
-    let iterList = <Iterable<Link<T[]>>>this.#list;
+    // Go through the list to find a proper link
+    const link = this.#getStartLinkEndLink(index, index).startLink;
 
-    if (!this.#isForwardIter(index)) {
-      targetLinkIndex = this.#listLength - targetLinkIndex - 1;
-      iterList = this.#list.reverse();
-    }
-
-    for (const link of iterList) {
-      if (currListIndex === targetLinkIndex) {
-        return link.value[this.#getLocalIndex(index)];
-      }
-      currListIndex++;
+    if (link !== null) {
+      return link.value[this.#getLocalIndex(index)];
     }
     return undefined;
   }
@@ -193,23 +225,10 @@ class DynamicArray<T = unknown> {
     }
     // Update element(Go through the list to find a proper element in the array)
     else {
-      // Get forward iterator if target list index in the first half
       // Go through the list to find a proper element in the array
-      let currListIndex = 0;
-      let targetLinkIndex = this.#getListIndex(index);
-      let iterList = <Iterable<Link<T[]>>>this.#list;
-
-      if (!this.#isForwardIter(index)) {
-        targetLinkIndex = this.#listLength - targetLinkIndex - 1;
-        iterList = this.#list.reverse();
-      }
-
-      for (const link of iterList) {
-        if (currListIndex === targetLinkIndex) {
-          link.value[this.#getLocalIndex(index)] = value;
-        }
-        currListIndex++;
-      }
+      const link = this.#getStartLinkEndLink(index, index).startLink;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      link!.value[this.#getLocalIndex(index)] = value;
     }
   }
 
@@ -292,40 +311,3 @@ class DynamicArray<T = unknown> {
     };
   }
 }
-
-const proxy = new Proxy(DynamicArray, {
-  construct(target, [capacity]) {
-    const arr = <DynamicArray>new target(capacity);
-
-    return new Proxy(arr, {
-      get(target, p, receiver) {
-        if (typeof p === 'string') {
-          // Process access by index
-          if (DynamicArray.isIndex(p)) {
-            return target.get(Number(p));
-          }
-        }
-
-        const val = Reflect.get(target, p, receiver);
-
-        if (typeof val === 'function') {
-          return val.bind(target);
-        }
-
-        return val;
-      },
-
-      set(target, p, value, receiver) {
-        if (typeof p === 'string') {
-          // Process set by index
-          if (DynamicArray.isIndex(p)) {
-            target.set(Number(p), value);
-          }
-        }
-        return Reflect.set(target, p, value, receiver);
-      },
-    });
-  },
-});
-
-export default proxy;

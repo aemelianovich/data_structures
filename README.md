@@ -227,6 +227,18 @@ Implementation of different data structures, e.g.
     // Get element using bracket notation
     console.log(arr[0]);
 
+    // DynamicArrayVector method only:
+
+    // Return object:
+    // leftBound - points to the index before the seeking key, min -1
+    // rightBound - points to the index after the seeking key, max arr.length
+    // sortedArray - new sorted array which was created based on DynamicArrayVector
+
+    // FYI:
+    // if rightBound - leftBound = 1, it means that number was not founded.
+    // number of founded keys = rightBound - leftBound - 1;
+    arr.binarySearch(2);
+
     // Predefiend Errors:
     // The 'StructIsEmptyError' error will be thrown if you tried to get element from an empty array
     // The 'StructRandomInsertError' error will be thrown if you tried to insert element into random place
