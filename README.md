@@ -13,6 +13,7 @@ Implementation of different data structures, e.g.
 - Dequeue(Based on linked list)
 - DynamicArray(Based on fixed array and linked list)
 - HashTable(Resolving collisions method - chaining based on Linked List)
+- Binary Search Tree(BST)
 
 ## Structure API:
 
@@ -269,5 +270,62 @@ Implementation of different data structures, e.g.
 
     // Get keys iterator in random order
     console.log([...hashTable.keys()]); // ['foo', 10]
+
+    ```
+
+## Binary Search Tree(BST) API:
+
+    ```js
+    // Binary Search Tree(BST)
+    import BST from './src';
+
+    // Create new bst
+    // It is possible to pass the key for the root node into constructor
+    const bst = new BST<number>();
+
+
+    // Finds and returns the node with key from the subtree rooted at this node.
+    bst.find(4);
+
+    // Returns the minimum node of this BST.
+    bst.findMin();
+
+    // Inserts a node with key into the subtree rooted at this node
+    // and returns inserted node
+    bst.insert(1);
+
+    // Deletes and returns a node with key if it exists from the BST.
+    bst.delete(1);
+
+
+    // Returns the node that contains the next larger (the successor) key
+    // in the BST in relation to the node with key.
+    bst.nextLarger(5);
+
+    // Checks the BST representation invariant.
+    // Invariant BST: for all nodes x,
+    //  if y is in the left subtree of x - key(y) <= key(x)
+    //  if y is in the right subtree of x - key(y) >= key(x)
+    bst.checkRI();
+
+    // InOrder tree traversal
+    for (el of bst.inOrder()) {
+        console.log(el);
+    }
+
+    // PreOrder tree traversal
+    for (el of bst.preOrder()) {
+        console.log(el);
+    }
+
+    // PostOrder tree traversal
+    for (el of bst.postOrder()) {
+        console.log(el);
+    }
+
+    // breadth first tree traversal
+    for (el of bst.breadthFirst()) {
+        console.log(el);
+    }
 
     ```

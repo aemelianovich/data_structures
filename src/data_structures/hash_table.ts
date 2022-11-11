@@ -87,6 +87,9 @@ export default class HashTable<T> {
   keys(): IterableIterator<string | undefined> {
     function* iter(this: Array<DoublyLinkedList<[K: string, V: T]>>) {
       for (const list of this) {
+        if (list === undefined) {
+          continue;
+        }
         for (const link of list) {
           yield link.value[0];
         }
